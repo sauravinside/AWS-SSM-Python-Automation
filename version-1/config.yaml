@@ -1,0 +1,31 @@
+# config.yaml
+aws:
+  region: us-west-2
+  profile: default  # AWS profile to use
+
+instances:
+  # Optional: Directly specify instance IDs
+  ids: []  # Leave empty to use Terraform output
+  
+  # Optional: Specify tags to filter instances
+  tags:
+    Environment: Production
+    Project: Monitoring
+
+scripts:
+  # List of scripts to execute (in order)
+  - name: install_grafana.sh
+    timeout: 300  # timeout in seconds
+    retry_count: 3
+    parallel_execution: true
+    
+  # You can add multiple scripts
+  # - name: install_prometheus.sh
+  #   timeout: 300
+  #   retry_count: 3
+  #   parallel_execution: true
+
+execution:
+  max_parallel: 10  # Maximum number of parallel executions
+  default_timeout: 300  # Default timeout in seconds
+  output_dir: ./logs  # Directory for execution logs
